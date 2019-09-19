@@ -28,7 +28,7 @@ The following will outline the test functions and then validate the results by p
 	- Expected result = 25 day   *Merry Xmas !!!, or Happy non-denominational day!!! YAY
 8. Click on the "Submit" button and Wait
 	- Expected result = flight results page will appear. 
-9. To check if all the valid values entered were correct I elected to audit the URL which contains the selections chosen. If the known URL matches then this test passes. 
+9. To check if all the valid values entered were correct. I elected to audit the URL which contains the selections chosen. If the known URL matches then this test passes. 
 
 
 Known Issues:
