@@ -45,3 +45,9 @@ Console message:
 Because there are several similar elements representing the 'days' and based on the fact that the findElements seems to search the rightmost calendar before the leftmost one. 
 There is a large possibility that the incorrect month/day will be chosen. 
 To make this more efficent I would recommend making the 'days' elements more unique.
+
+
+
+Thanks, 
+
+Ian 
