@@ -3,7 +3,7 @@ WestJet Flight booking automation assessment.
 This is a short test script written in Java, using the Selenium framework. 
 
 Assumptions:
-1. to run the program one can use an IDE of their choice. I used eclipse but IntelliJ should work as well. 
+1. To run the program one can use an IDE of their choice. I used eclipse but IntelliJ should work as well. 
 2. The test is written for the chrome browser using the chromedriver.exe which can be downloaded here. 
 3. This is a standalone script so there is no framework (TestNg, Maven build) supported here. 
 
