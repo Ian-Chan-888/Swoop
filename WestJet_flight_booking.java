@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,7 +19,7 @@ public class WestJet_flightbooking {
 
 	
 	
-		System.setProperty("webdriver.chrome.driver","C:\\Program Files\\eclipse\\chromedriver.exe"); //Your driver location will be different
+		System.setProperty("webdriver.chrome.driver","C:\\Program Files\\eclipse\\chromedriver.exe");
 		WebDriver driver=new ChromeDriver();
 		driver.get("https://www.westjet.com/en-ca/book-trip/flight");
 		driver.manage().window().maximize();//max browser window
@@ -88,7 +89,17 @@ public class WestJet_flightbooking {
 		
 			for(int i=0;i<count;i++)
 				{
-					String text=driver.findElements(By.cssSelector("div[class='dw-cal-day-fg']")).get(i).getText();  //Known issue here where sometimes get : Stale Element (see Readme.md)
+					
+				String text;
+				// To prevent stale emlement exception Line 95-100 using try catch with StaleElementReferenceException reference
+				try {
+					text = driver.findElements(By.cssSelector("div[class='dw-cal-day-fg']")).get(i).getText();
+				} catch (StaleElementReferenceException e) {
+					
+					text = driver.findElements(By.cssSelector("div[class='dw-cal-day-fg']")).get(i).getText();
+				}
+				
+				
 					if(text.equalsIgnoreCase("25"))
 					{
 						driver.findElements(By.cssSelector("div[class='dw-cal-day-fg']")).get(i).click();
@@ -102,19 +113,106 @@ public class WestJet_flightbooking {
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	//  wait for page to load.
 			
 			
-			// Validating entries by comparing url to known values.
-			System.out.println(driver.getCurrentUrl());
-			String url=driver.getCurrentUrl();
+			//Validating Origin location	
+			String origin;
 			
-			if(!url.contains("https://www.westjet.com/shop/?lang=en&type=search&origin=YVR&destination=LGW&adults=2&children=1&infants=0&outboundDate=2019-12-25&returnDate=&companionvoucher=false&iswestjetdollars=false&promo=&currency=CAD&caller=https%3A%2F%2Fwww.westjet.com%2Fen-ca%2Fbook-trip%2Fflight"))
-			{
-				System.out.println("Failed: Selections do not match");
-				
+			try { // from lines 119 to 121 using try catch to elmiate state element exception
+				origin = driver.findElement(By.cssSelector("strong[class='origin']")).getText();
+			} catch (StaleElementReferenceException e) {
+				// TODO Auto-generated catch block
+				origin = driver.findElement(By.cssSelector("strong[class='origin']")).getText();
 			}
+			
+			
+			if (!origin.equalsIgnoreCase("Vancouver (YVR)"))
+					{
+				System.out.println("Origin of Vancouver (YVR) FAILED");
+				System.out.println("Instead got " + origin);
+					}
 			else
 			{
-				System.out.println("Passed: All selections match");
+				System.out.println("Origin of Vancouver (YVR) PASSED");
+
 			}
+			
+			
+			
+			//Validating destination location	
+			String destination;
+						
+				destination = driver.findElement(By.cssSelector("strong[class='destination']")).getText();
+				
+			
+			if (!destination.equalsIgnoreCase("London (Gatwick) (LGW)"))
+					{
+				System.out.println("Destination of London (Gatwick) (LGW) FAILED");
+				System.out.println("Instead got " + destination);
+					}
+			else
+			{
+				System.out.println("Destination of London (Gatwick) (LGW) PASSED");
+
+			}
+			
+			
+			
+			//Validating Start Date location	
+			String sdate;
+						
+			sdate = driver.findElement(By.xpath("//*[@id=\"main\"]/div[4]/div[1]/div/div/div[1]/div[2]/div/span/strong/span")).getText();
+						
+			if (!sdate.contains("Dec. 25"))
+					{
+				System.out.println("Start Date Validation FAILED: Expected Dec. 25");
+				System.out.println("Instead got " + sdate);
+					}
+			else
+			{
+				System.out.println("Start Date Validation PASSED = " + sdate);
+
+			}
+			
+
+			//Validating Number of Audults	
+			String Adults;
+						
+			Adults = driver.findElement(By.xpath("//*[@id=\"main\"]/div[4]/div[1]/div/div/div[1]/div[3]/div/span[1]/strong")).getText();
+			
+			
+			if (!Adults.contains("2"))
+					{
+				System.out.println("Number of Audults Validation FAILED Expected '2'");
+				System.out.println("Instead got " + Adults);
+					}
+			else
+			{
+				System.out.println("Number of Audults Validation PASSED = " + Adults);
+
+			}
+			
+			
+			//Validating Number of Children	
+			String Children;
+						
+			Children = driver.findElement(By.xpath("//*[@id=\"main\"]/div[4]/div[1]/div/div/div[1]/div[3]/div/span[2]/strong")).getText();
+			
+			
+			if (!Children.contains("1"))
+					{
+				System.out.println("Number of Children Validation FAILED = " + Children);
+					}
+			else
+			{
+				System.out.println("Number of Children Validation PASSED= " + Children);
+
+			}
+				
+			
+			
+			
+			
+			
+		
 			
 			System.out.println("End Program");
 			
