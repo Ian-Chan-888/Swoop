@@ -28,20 +28,12 @@ The following will outline the test functions and then validate the results by p
 	- Expected result = 25 day   *Merry Xmas !!!, or Happy non-denominational day!!! YAY
 8. Click on the "Submit" button and Wait
 	- Expected result = flight results page will appear. 
-9. To check if all the valid values entered were correct. I elected to audit the URL which contains the selections chosen. If the known URL matches then this test passes. 
+9. To check if all the valid values entered were correct. and out put to console.
 
 
-Known Issues:
+Known Issue:
 
-1. At line 91:
-Element reference is not visible. This problem is intermitent, subsequent reruns will pass, but more investigation on 'Stale Elements' are needed.
-snip: 
-String text=driver.findElements(By.cssSelector("div[class='dw-cal-day-fg']")).get(i).getText();
-Console message:
-'stale element reference: element is not attached to the page document'
-
-
-2. The calendar date picker is fragile. 
+The calendar date picker is fragile. 
 Because there are several similar elements representing the 'days' and based on the fact that the findElements seems to search the rightmost calendar before the leftmost one. 
 There is a large possibility that the incorrect month/day will be chosen. 
 To make this more efficent I would recommend making the 'days' elements more unique.
