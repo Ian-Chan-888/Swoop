@@ -1,4 +1,4 @@
-WestJet Flight booking automation assessment. 
+WestJet Flight booking automation Example
 
 This is a short test script written in Java, using the Selenium framework. 
 
